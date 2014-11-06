@@ -2,31 +2,15 @@ package com.mercadolibre.jvillarnovo.trainingpractico1;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.net.http.AndroidHttpClient;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
-
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicHeader;
-import org.apache.http.protocol.HTTP;
-import org.apache.http.util.EntityUtils;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.json.JSONTokener;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import android.widget.TextView;
 
 
 public class MainActivity extends Activity {
@@ -44,22 +28,33 @@ public class MainActivity extends Activity {
 
     private void initComponents(){
         txtSearchItem=(EditText) findViewById(R.id.txtSearch);
+        txtSearchItem.setOnEditorActionListener(new EditText.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int actionID, KeyEvent keyEvent) {
+                if(actionID== EditorInfo.IME_ACTION_SEARCH ||
+                        keyEvent.getAction()==KeyEvent.ACTION_DOWN &&
+                                keyEvent.getKeyCode()==KeyEvent.KEYCODE_ENTER){
+                    search();
+                }
+                return false;
+            }
+        });
         btnSearch=(Button) findViewById(R.id.btnSearch);
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(checkTextSearchItem()){
-                    search();
-                }
+                search();
             }
         });
 
     }
 
     private void search(){
-        Intent i= new Intent(this, ResultActivity.class);
-        i.putExtra(ResultActivity.ITEM_SEARCH,txtSearchItem.getText().toString());
-        startActivity(i);
+        if(checkTextSearchItem()){
+            Intent i= new Intent(this, ResultActivity.class);
+            i.putExtra(ResultActivity.ITEM_SEARCH,txtSearchItem.getText().toString());
+            startActivity(i);
+        }
     }
 
     private boolean checkTextSearchItem(){
