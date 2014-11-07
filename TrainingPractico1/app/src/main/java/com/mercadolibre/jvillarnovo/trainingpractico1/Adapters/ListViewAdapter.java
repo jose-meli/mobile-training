@@ -53,6 +53,15 @@ public class ListViewAdapter extends BaseAdapter {
             holder=new ItemViewHolder();
             holder.title=(TextView) view.findViewById(R.id.txtTitle);
             holder.price=(TextView) view.findViewById(R.id.txtPrice);
+
+            if(view.findViewById(R.id.txtSubtitle)!=null){
+                holder.subtitle=(TextView) view.findViewById(R.id.txtSubtitle);
+            }
+
+            if(view.findViewById(R.id.txtStock)!=null){
+                holder.stock=(TextView) view.findViewById(R.id.txtStock);
+            }
+
             view.setTag(holder);
         } else {
             holder=(ItemViewHolder) view.getTag();
@@ -62,6 +71,23 @@ public class ListViewAdapter extends BaseAdapter {
 
         holder.title.setText(item.getTitle());
         holder.price.setText("$ "+ NumberFormat.getInstance().format(item.getPrice()));
+
+        if (holder.stock != null) {
+            if (item.getStock() == null) {
+                holder.stock.setText(null);
+            } else {
+                String stock = view.getContext().getString(R.string.stock);
+                holder.stock.setText(stock + ": " + item.getStock());
+            }
+        }
+
+        if(holder.subtitle!=null){
+            if(item.getSubtitle()!=null){
+                holder.subtitle.setText(item.getSubtitle());
+            } else {
+                holder.subtitle.setText("");
+            }
+        }
 
         return view;
     }

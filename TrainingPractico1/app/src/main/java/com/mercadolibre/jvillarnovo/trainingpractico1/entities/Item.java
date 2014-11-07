@@ -10,11 +10,15 @@ public class Item implements Serializable {
     private String id;
     private String title;
     private double price;
+    private String stock;
+    private String subtitle;
 
-    public Item(String id, String title, double price){
+    public Item(String id, String title, double price, String stock, String subtitle){
         this.setId(id);
         this.setTitle(title);
         this.setPrice(price);
+        this.setStock(stock);
+        this.setSubtitle(subtitle);
     }
 
     public String getId() {
@@ -39,5 +43,21 @@ public class Item implements Serializable {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public String getStock() {
+        return stock;
+    }
+
+    public void setStock(String stock) {
+        this.stock = stock;
+    }
+
+    public String getSubtitle() {
+        return subtitle;
+    }
+
+    public void setSubtitle(String subtitle) {
+        this.subtitle = subtitle;
     }
 }

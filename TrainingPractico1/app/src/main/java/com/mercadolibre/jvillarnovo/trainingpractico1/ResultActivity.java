@@ -1,6 +1,7 @@
 package com.mercadolibre.jvillarnovo.trainingpractico1;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
@@ -29,6 +30,8 @@ import java.util.LinkedList;
 public class ResultActivity extends Activity {
 
     public static final String ITEM_SEARCH="item_search";
+    public static final String LAST_QUERY="last_query";
+    public static final String PREF_FILE="tp1_pref_file";
     private AsyncSearch searchThread;
     private ListView listViewResults;
     private ListViewAdapter listViewAdapter;
@@ -71,6 +74,15 @@ public class ResultActivity extends Activity {
         showResultsView();
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        SharedPreferences settings = getSharedPreferences(PREF_FILE, 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putString(LAST_QUERY, getIntent().getStringExtra(ITEM_SEARCH));
+        editor.commit();
+    }
+
     private void showResultsView(){
         listViewAdapter.notifyDataSetChanged();
     }
@@ -103,7 +115,7 @@ public class ResultActivity extends Activity {
 
     private Item generateItem(JSONObject item){
         try {
-            return new Item(item.getString("id"), item.getString("title"), item.getDouble("price"));
+            return new Item(item.getString("id"), item.getString("title"), item.getDouble("price"), item.getString("available_quantity"), item.getString("subtitle"));
         } catch (JSONException e){
             e.printStackTrace();
             return null;

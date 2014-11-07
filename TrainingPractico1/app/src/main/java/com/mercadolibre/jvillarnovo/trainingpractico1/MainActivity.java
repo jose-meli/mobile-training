@@ -2,6 +2,7 @@ package com.mercadolibre.jvillarnovo.trainingpractico1;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -46,7 +47,8 @@ public class MainActivity extends Activity {
                 search();
             }
         });
-
+        SharedPreferences settings=getSharedPreferences(ResultActivity.PREF_FILE,0);
+        txtSearchItem.setText((settings.getString(ResultActivity.LAST_QUERY,"")));
     }
 
     private void search(){

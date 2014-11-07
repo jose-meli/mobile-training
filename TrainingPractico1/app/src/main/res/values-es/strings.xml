@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Entrenamiento Practico 1</string>
+    <string name="action_settings">Configuracion</string>
+    <string name="txt_search_hint">Producto</string>
+    <string name="btn_search">Buscar</string>
+    <string name="txt_results">Resultados</string>
+    <string name="error_empty_text">Ingrese un producto a buscar</string>
+    <string name="title_activity_result">Resultados</string>
+    <string name="stock">Disponibilidad</string>
+</resources>

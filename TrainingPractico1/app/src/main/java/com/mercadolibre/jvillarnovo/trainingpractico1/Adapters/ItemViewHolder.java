@@ -8,4 +8,6 @@ import android.widget.TextView;
 public class ItemViewHolder {
     public TextView price;
     public TextView title;
+    public TextView stock;
+    public TextView subtitle;
 }
