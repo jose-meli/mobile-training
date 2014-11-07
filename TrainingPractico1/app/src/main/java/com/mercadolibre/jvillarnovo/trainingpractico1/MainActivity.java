@@ -16,6 +16,8 @@ import android.widget.TextView;
 
 public class MainActivity extends Activity {
 
+    public static final String LAST_QUERY="last_query";
+    public static final String PREF_FILE="tp1_pref_file";
     private EditText txtSearchItem;
     private Button btnSearch;
 
@@ -47,19 +49,27 @@ public class MainActivity extends Activity {
                 search();
             }
         });
-        SharedPreferences settings=getSharedPreferences(ResultActivity.PREF_FILE,0);
-        txtSearchItem.setText((settings.getString(ResultActivity.LAST_QUERY,"")));
+        SharedPreferences settings=getSharedPreferences(PREF_FILE,0);
+        txtSearchItem.setText((settings.getString(LAST_QUERY,"")));
     }
 
     private void search(){
-        if(checkTextSearchItem()){
+        if(isSearchTextValid()){
+            saveLastQuery();
             Intent i= new Intent(this, ResultActivity.class);
             i.putExtra(ResultActivity.ITEM_SEARCH,txtSearchItem.getText().toString());
             startActivity(i);
         }
     }
 
-    private boolean checkTextSearchItem(){
+    private void saveLastQuery() {
+        SharedPreferences settings = getSharedPreferences(PREF_FILE, 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putString(LAST_QUERY, getIntent().getStringExtra(txtSearchItem.getText().toString()));
+        editor.commit();
+    }
+
+    private boolean isSearchTextValid(){
         if(txtSearchItem.getText().toString().isEmpty()){
             txtSearchItem.setError(getString(R.string.error_empty_text));
             return false;

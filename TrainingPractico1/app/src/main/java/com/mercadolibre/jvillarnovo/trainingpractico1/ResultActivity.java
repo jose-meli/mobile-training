@@ -1,7 +1,6 @@
 package com.mercadolibre.jvillarnovo.trainingpractico1;
 
 import android.app.Activity;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
@@ -24,14 +23,14 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.LinkedList;
 
 
 public class ResultActivity extends Activity {
 
     public static final String ITEM_SEARCH="item_search";
-    public static final String LAST_QUERY="last_query";
-    public static final String PREF_FILE="tp1_pref_file";
     private AsyncSearch searchThread;
     private ListView listViewResults;
     private ListViewAdapter listViewAdapter;
@@ -74,15 +73,6 @@ public class ResultActivity extends Activity {
         showResultsView();
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        SharedPreferences settings = getSharedPreferences(PREF_FILE, 0);
-        SharedPreferences.Editor editor = settings.edit();
-        editor.putString(LAST_QUERY, getIntent().getStringExtra(ITEM_SEARCH));
-        editor.commit();
-    }
-
     private void showResultsView(){
         listViewAdapter.notifyDataSetChanged();
     }
@@ -109,17 +99,13 @@ public class ResultActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void insertItemList(Item item){
+    private void insertItemList(Item item)
+    {
         listResults.add(item);
     }
 
-    private Item generateItem(JSONObject item){
-        try {
-            return new Item(item.getString("id"), item.getString("title"), item.getDouble("price"), item.getString("available_quantity"), item.getString("subtitle"));
-        } catch (JSONException e){
-            e.printStackTrace();
-            return null;
-        }
+    private Item generateItem(JSONObject item) throws JSONException {
+        return new Item(item.getString("id"), item.getString("title"), item.getDouble("price"), item.getString("available_quantity"), item.getString("subtitle"));
     }
 
     private class AsyncSearch extends AsyncTask<String,Void,JSONObject> {
@@ -128,7 +114,11 @@ public class ResultActivity extends Activity {
 
         @Override
         protected JSONObject doInBackground(String... strings) {
-            url = "https://api.mercadolibre.com/sites/MLA/search?q=" + strings[0] + "&limit=100";
+            try {
+                url = "https://api.mercadolibre.com/sites/MLA/search?q=" + URLEncoder.encode(strings[0], "UTF-8") + "&limit=100";
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
             return parseJsonOb(sendRequest(url));
         }
 
@@ -140,8 +130,8 @@ public class ResultActivity extends Activity {
                 return client.execute(request);
             } catch (IOException e) {
                 e.printStackTrace();
-                return null;
             }
+            return null;
         }
 
         private JSONObject parseJsonOb(HttpResponse response) {

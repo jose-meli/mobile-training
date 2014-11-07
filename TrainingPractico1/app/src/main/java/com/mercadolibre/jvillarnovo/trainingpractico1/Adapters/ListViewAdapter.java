@@ -27,10 +27,10 @@ public class ListViewAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        if(items!=null){
-            return items.size();
-        } else {
+        if (items == null) {
             return 0;
+        } else {
+            return items.size();
         }
     }
 
@@ -54,12 +54,14 @@ public class ListViewAdapter extends BaseAdapter {
             holder.title=(TextView) view.findViewById(R.id.txtTitle);
             holder.price=(TextView) view.findViewById(R.id.txtPrice);
 
-            if(view.findViewById(R.id.txtSubtitle)!=null){
-                holder.subtitle=(TextView) view.findViewById(R.id.txtSubtitle);
+            View subtitleView = view.findViewById(R.id.txtSubtitle);
+            if(subtitleView !=null){
+                holder.subtitle=(TextView) subtitleView;
             }
 
-            if(view.findViewById(R.id.txtStock)!=null){
-                holder.stock=(TextView) view.findViewById(R.id.txtStock);
+            View stockView = view.findViewById(R.id.txtStock);
+            if(stockView !=null){
+                holder.stock=(TextView) stockView;
             }
 
             view.setTag(holder);

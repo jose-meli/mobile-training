@@ -13,12 +13,12 @@ public class Item implements Serializable {
     private String stock;
     private String subtitle;
 
-    public Item(String id, String title, double price, String stock, String subtitle){
-        this.setId(id);
-        this.setTitle(title);
-        this.setPrice(price);
-        this.setStock(stock);
-        this.setSubtitle(subtitle);
+    public Item(String id, String title, double price, String stock, String subtitle) {
+        this.id = id;
+        this.title = title;
+        this.price = price;
+        this.stock = stock;
+        this.subtitle = subtitle;
     }
 
     public String getId() {
