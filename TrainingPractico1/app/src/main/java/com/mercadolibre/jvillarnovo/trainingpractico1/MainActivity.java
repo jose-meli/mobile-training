@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -50,6 +51,7 @@ public class MainActivity extends Activity {
             }
         });
         SharedPreferences settings=getSharedPreferences(PREF_FILE,0);
+        Log.d("MainActivity.initComponent()",settings.getString(LAST_QUERY,""));
         txtSearchItem.setText((settings.getString(LAST_QUERY,"")));
     }
 
@@ -64,8 +66,9 @@ public class MainActivity extends Activity {
 
     private void saveLastQuery() {
         SharedPreferences settings = getSharedPreferences(PREF_FILE, 0);
+        Log.d("saveLastQuery()",txtSearchItem.getText().toString());
         SharedPreferences.Editor editor = settings.edit();
-        editor.putString(LAST_QUERY, getIntent().getStringExtra(txtSearchItem.getText().toString()));
+        editor.putString(LAST_QUERY, txtSearchItem.getText().toString());
         editor.commit();
     }
 

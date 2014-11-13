@@ -1,5 +1,6 @@
 package com.mercadolibre.jvillarnovo.trainingpractico1.Adapters;
 
+import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
@@ -10,4 +11,5 @@ public class ItemViewHolder {
     public TextView title;
     public TextView stock;
     public TextView subtitle;
+    public ImageView imageView;
 }

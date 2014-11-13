@@ -1,5 +1,7 @@
 package com.mercadolibre.jvillarnovo.trainingpractico1.entities;
 
+import android.graphics.Bitmap;
+
 import java.io.Serializable;
 
 /**
@@ -12,13 +14,17 @@ public class Item implements Serializable {
     private double price;
     private String stock;
     private String subtitle;
+    private String imgUrl;
+    private transient Bitmap img;
+    private transient boolean downloadImg;
 
-    public Item(String id, String title, double price, String stock, String subtitle) {
+    public Item(String id, String title, double price, String stock, String subtitle, String imgUrl) {
         this.id = id;
         this.title = title;
         this.price = price;
         this.stock = stock;
         this.subtitle = subtitle;
+        this.imgUrl=imgUrl;
     }
 
     public String getId() {
@@ -59,5 +65,34 @@ public class Item implements Serializable {
 
     public void setSubtitle(String subtitle) {
         this.subtitle = subtitle;
+    }
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
+
+    public Bitmap getImg() {
+        return img;
+    }
+
+    public void setImg(Bitmap img) {
+        this.img = img;
+    }
+
+    public boolean isDownloadImg() {
+        return downloadImg;
+    }
+
+    public void setDownloadImg(boolean downloadImg) {
+        this.downloadImg = downloadImg;
+    }
+
+    @Override
+    public String toString(){
+        return id;
     }
 }

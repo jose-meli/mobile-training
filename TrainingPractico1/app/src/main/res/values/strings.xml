@@ -8,4 +8,5 @@
     <string name="error_empty_text">Enter an item to search</string>
     <string name="title_activity_result">Results</string>
     <string name="stock">Stock</string>
+    <string name="result_progress_loading">Loading</string>
 </resources>
