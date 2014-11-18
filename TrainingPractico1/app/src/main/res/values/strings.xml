@@ -9,4 +9,6 @@
     <string name="title_activity_result">Results</string>
     <string name="stock">Stock</string>
     <string name="result_progress_loading">Loading</string>
+    <string name="item_condition">Item condition: </string>
+    <string name="title_activity_item_detail">Item Detail</string>
 </resources>

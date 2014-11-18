@@ -14,17 +14,21 @@ public class Item implements Serializable {
     private double price;
     private String stock;
     private String subtitle;
-    private String imgUrl;
-    private transient Bitmap img;
+    private String thumbnailUrl;
+    private transient Bitmap thumbnail;
     private transient boolean downloadImg;
+    private String condition;
+    private String imageUrl;
+    private transient Bitmap image;
 
-    public Item(String id, String title, double price, String stock, String subtitle, String imgUrl) {
+    public Item(String id, String title, double price, String stock, String subtitle, String thumbnailUrl, String condition) {
         this.id = id;
         this.title = title;
         this.price = price;
         this.stock = stock;
         this.subtitle = subtitle;
-        this.imgUrl=imgUrl;
+        this.thumbnailUrl = thumbnailUrl;
+        this.condition=condition;
     }
 
     public String getId() {
@@ -67,20 +71,20 @@ public class Item implements Serializable {
         this.subtitle = subtitle;
     }
 
-    public String getImgUrl() {
-        return imgUrl;
+    public String getThumbnailUrl() {
+        return thumbnailUrl;
     }
 
-    public void setImgUrl(String imgUrl) {
-        this.imgUrl = imgUrl;
+    public void setThumbnailUrl(String thumbnailUrl) {
+        this.thumbnailUrl = thumbnailUrl;
     }
 
-    public Bitmap getImg() {
-        return img;
+    public Bitmap getThumbnail() {
+        return thumbnail;
     }
 
-    public void setImg(Bitmap img) {
-        this.img = img;
+    public void setThumbnail(Bitmap img) {
+        this.thumbnail = img;
     }
 
     public boolean isDownloadImg() {
@@ -89,6 +93,30 @@ public class Item implements Serializable {
 
     public void setDownloadImg(boolean downloadImg) {
         this.downloadImg = downloadImg;
+    }
+
+    public String getCondition() {
+        return condition;
+    }
+
+    public void setCondition(String condition) {
+        this.condition = condition;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public Bitmap getImage() {
+        return image;
+    }
+
+    public void setImage(Bitmap image) {
+        this.image = image;
     }
 
     @Override

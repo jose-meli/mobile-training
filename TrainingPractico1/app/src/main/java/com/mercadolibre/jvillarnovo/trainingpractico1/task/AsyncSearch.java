@@ -90,7 +90,7 @@ public class AsyncSearch extends AsyncTask<Object,Void,JSONObject> {
     }
 
     private Item generateItem(JSONObject item) throws JSONException {
-        return new Item(item.getString("id"), item.getString("title"), item.getDouble("price"), item.getString("available_quantity"), item.getString("subtitle"), item.getString("thumbnail"));
+        return new Item(item.getString("id"), item.getString("title"), item.getDouble("price"), item.getString("available_quantity"), item.getString("subtitle"), item.getString("thumbnail"),item.getString("condition"));
     }
 
     private String getURL(String item, int limit, int offset) throws UnsupportedEncodingException{

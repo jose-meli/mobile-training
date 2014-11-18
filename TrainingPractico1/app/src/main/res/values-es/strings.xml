@@ -9,4 +9,6 @@
     <string name="title_activity_result">Resultados</string>
     <string name="stock">Disponibilidad</string>
     <string name="result_progress_loading">Cargando</string>
+    <string name="item_condition">Tipo de producto: </string>
+    <string name="title_activity_item_detail">Detalle del producto</string>
 </resources>
