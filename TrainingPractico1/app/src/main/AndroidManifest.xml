@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.mercadolibre.jvillarnovo.trainingpractico1" >
+    package="com.mercadolibre.jvillarnovo.trainingpractico1">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <activity
             android:name="com.mercadolibre.jvillarnovo.trainingpractico1.MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,12 +21,21 @@
         </activity>
         <activity
             android:name="com.mercadolibre.jvillarnovo.trainingpractico1.ResultActivity"
-            android:label="@string/title_activity_result" >
-        </activity>
-        <activity
-            android:name="com.mercadolibre.jvillarnovo.trainingpractico1.ItemDetailActivity"
-            android:label="@string/title_activity_item_detail" >
-        </activity>
+            android:label="@string/title_activity_result"
+            android:parentActivityName=".MainActivity"></activity>
+
+        <service android:name=".tracker.TrackerService" />
+
+        <provider
+            android:authorities="com.mercadolibre.jvillarnovo.trainingpractico1.tracker.TrackerProvider"
+            android:name=".tracker.TrackerProvider"
+            android:exported="false"></provider>
+
+        <receiver android:name=".tracker.BootReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.REBOOT" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

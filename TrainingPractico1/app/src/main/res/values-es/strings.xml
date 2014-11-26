@@ -11,4 +11,13 @@
     <string name="result_progress_loading">Cargando</string>
     <string name="item_condition">Tipo de producto: </string>
     <string name="title_activity_item_detail">Detalle del producto</string>
+    <string name="service_started">Seguimiento Iniciado</string>
+    <string name="txt_on_tracker">Seguir</string>
+    <string name="txt_off_tracker">Dejar de seguir</string>
+    <string name="notification_ticket_price">Cambio el precio</string>
+    <string name="notification_title_price">Nuevo Precio</string>
+    <string name="notification_content_price">Ahora sale: $</string>
+    <string name="notification_ticket_date">Fecha de item por finalizar!</string>
+    <string name="notification_title_date">Item con fecha de finalización</string>
+    <string name="notification_content_date">La fecha está a punto de finalizar</string>
 </resources>

@@ -11,4 +11,13 @@
     <string name="result_progress_loading">Loading</string>
     <string name="item_condition">Item condition: </string>
     <string name="title_activity_item_detail">Item Detail</string>
+    <string name="service_started">Tracker Started</string>
+    <string name="txt_on_tracker">Track</string>
+    <string name="txt_off_tracker">Stop Track</string>
+    <string name="notification_ticket_price">Price has changed</string>
+    <string name="notification_title_price">New Price</string>
+    <string name="notification_content_price">Now it is $</string>
+    <string name="notification_ticket_date">The date is close!</string>
+    <string name="notification_title_date">Close Date</string>
+    <string name="notification_content_date">The items date is about to end</string>
 </resources>

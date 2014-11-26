@@ -31,18 +31,18 @@ import java.util.concurrent.TimeUnit;
  */
 public class ImageDownloadManager {
 
-    private static final ImageDownloadManager INSTANCE=new ImageDownloadManager();
+    private static final ImageDownloadManager INSTANCE = new ImageDownloadManager();
     private ThreadPoolExecutor thread;
     private LruCache<String, Bitmap> imageCache;
 
 
-    private ImageDownloadManager(){
-        thread=new ThreadPoolExecutor(2,10,20, TimeUnit.SECONDS,new LinkedBlockingDeque<Runnable>());
-        int cacheSizeBytes= 16 * 1024 * 1024;
-        imageCache=new LruCache<String, Bitmap>(cacheSizeBytes);
+    private ImageDownloadManager() {
+        thread = new ThreadPoolExecutor(2, 10, 20, TimeUnit.SECONDS, new LinkedBlockingDeque<Runnable>());
+        int cacheSizeBytes = 16 * 1024 * 1024;
+        imageCache = new LruCache<String, Bitmap>(cacheSizeBytes);
     }
 
-    public static ImageDownloadManager getInstance(){
+    public static ImageDownloadManager getInstance() {
         return INSTANCE;
     }
 
@@ -50,9 +50,9 @@ public class ImageDownloadManager {
         thread.execute(new Runnable() {
             @Override
             public void run() {
-                try{
-                    Bitmap img=imageCache.get(imgUrl);
-                    if(img==null){
+                try {
+                    Bitmap img = imageCache.get(imgUrl);
+                    if (img == null) {
                         byte[] content = EntityUtils.toByteArray(requestData(imgUrl));
                         img = BitmapFactory.decodeByteArray(content, 0, content.length);
                         imageCache.put(imgUrl, img);
@@ -60,28 +60,28 @@ public class ImageDownloadManager {
                     Message message = new Message();
                     message.arg1 = itemIndex;
                     message.obj = img;
-                    message.what= ItemDetailActivity.ImageHandler.BITMAP;
+                    message.what = ItemDetailActivity.ImageHandler.BITMAP;
                     mainThread.sendMessage(message);
-                } catch (IOException e){
+                } catch (IOException e) {
                     Log.e("ImageDownloadManager", e.toString());
                 }
             }
         });
     }
 
-    public void getUrlImage(final String itemId, final ItemDetailActivity.ImageHandler notifier){
+    public void getUrlImage(final String itemId, final ItemDetailActivity.ImageHandler notifier) {
         thread.execute(new Runnable() {
             @Override
             public void run() {
-                try{
-                    JSONObject result=new JSONObject(EntityUtils.toString(requestData("https://api.mercadolibre.com/items/" + itemId), HTTP.UTF_8));
-                    JSONArray images= result.getJSONArray("pictures");
-                    String urlImage= images.getJSONObject(0).getString("url");
+                try {
+                    JSONObject result = new JSONObject(EntityUtils.toString(requestData("https://api.mercadolibre.com/items/" + itemId), HTTP.UTF_8));
+                    JSONArray images = result.getJSONArray("pictures");
+                    String urlImage = images.getJSONObject(0).getString("url");
                     Message message = new Message();
-                    message.obj=urlImage;
-                    message.what= ItemDetailActivity.ImageHandler.URL;
+                    message.obj = urlImage;
+                    message.what = ItemDetailActivity.ImageHandler.URL;
                     notifier.sendMessage(message);
-                } catch (IOException e){
+                } catch (IOException e) {
                     Log.e("ImageDownloadManager", e.toString());
                 } catch (JSONException e) {
                     Log.e("ImageDownloadManager", e.toString());

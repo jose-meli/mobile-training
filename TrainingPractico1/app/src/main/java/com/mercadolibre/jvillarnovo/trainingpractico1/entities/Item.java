@@ -1,8 +1,13 @@
 package com.mercadolibre.jvillarnovo.trainingpractico1.entities;
 
+import android.database.Cursor;
 import android.graphics.Bitmap;
 
+import com.mercadolibre.jvillarnovo.trainingpractico1.storage.DataBaseContract;
+import com.mercadolibre.jvillarnovo.trainingpractico1.util.Util;
+
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Created by jvillarnovo on 05/11/14.
@@ -20,6 +25,8 @@ public class Item implements Serializable {
     private String condition;
     private String imageUrl;
     private transient Bitmap image;
+    private boolean tracking;
+    private transient Date date;
 
     public Item(String id, String title, double price, String stock, String subtitle, String thumbnailUrl, String condition) {
         this.id = id;
@@ -28,7 +35,16 @@ public class Item implements Serializable {
         this.stock = stock;
         this.subtitle = subtitle;
         this.thumbnailUrl = thumbnailUrl;
-        this.condition=condition;
+        this.condition = condition;
+        this.tracking = false;
+    }
+
+    public static final Item convertCursorToItem(Cursor cursor) {
+        Item item = new Item("", "", 0, "", "", "", "");
+        item.setId(cursor.getString(cursor.getColumnIndex(DataBaseContract.TrackerColumns.ID)));
+        item.setPrice(cursor.getDouble(cursor.getColumnIndex(DataBaseContract.TrackerColumns.PRICE)));
+
+        return item;
     }
 
     public String getId() {
@@ -119,8 +135,24 @@ public class Item implements Serializable {
         this.image = image;
     }
 
+    public boolean isTracking() {
+        return tracking;
+    }
+
+    public void setTracking(boolean tracking) {
+        this.tracking = tracking;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = Util.parseDate(date);
+    }
+
     @Override
-    public String toString(){
+    public String toString() {
         return id;
     }
 }

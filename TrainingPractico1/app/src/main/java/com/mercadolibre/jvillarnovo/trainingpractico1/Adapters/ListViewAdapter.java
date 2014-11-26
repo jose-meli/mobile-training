@@ -33,6 +33,7 @@ public class ListViewAdapter extends BaseAdapter implements AbsListView.OnScroll
     private String itemSearch;
     private View rowLoadingView;
     private int lastOffsetRequested;
+    private boolean isRequesting;
 
     public LinkedList<Item> getListItems() {
         return (LinkedList<Item>) items;
@@ -130,11 +131,13 @@ public class ListViewAdapter extends BaseAdapter implements AbsListView.OnScroll
 
     public void updateData(LinkedList<Item> list) {
         items.addAll(list);
+        lastOffsetRequested = items.size() - 1;
         this.notifyDataSetChanged();
+        isRequesting = false;
     }
 
     public void updateImgItem(int itemIndex, Bitmap img) {
-        Log.d("ListViewAdapter","itemIndex = "+ itemIndex+" SUCCESS UPDATE");
+        Log.d("ListViewAdapter", "itemIndex = " + itemIndex + " SUCCESS UPDATE");
         items.get(itemIndex).setThumbnail(img);
         notifyDataSetChanged();
     }
@@ -153,7 +156,8 @@ public class ListViewAdapter extends BaseAdapter implements AbsListView.OnScroll
         int lastVisibleItem = firstVisibleItem + visibleItemCount;
         int offset = getCount();
 
-        if (lastVisibleItem > offset - 5 && lastOffsetRequested < offset && offset > 0) {
+        if (lastVisibleItem > offset - 5 && lastOffsetRequested < offset && offset > 0 && !isRequesting) {
+            isRequesting = true;
             sendRequestItems(16, offset);
         }
     }
@@ -163,7 +167,6 @@ public class ListViewAdapter extends BaseAdapter implements AbsListView.OnScroll
             @Override
             public void executeOnSuccess(LinkedList<Item> result) {
                 updateData(result);
-                lastOffsetRequested = offset;
                 search = null;
             }
         });
@@ -171,7 +174,8 @@ public class ListViewAdapter extends BaseAdapter implements AbsListView.OnScroll
 
     public class ThumbnailHandler extends Handler {
 
-        public ThumbnailHandler(){}
+        public ThumbnailHandler() {
+        }
 
         @Override
         public void handleMessage(Message msg) {
